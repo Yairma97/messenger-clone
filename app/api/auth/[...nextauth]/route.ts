@@ -7,7 +7,7 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
 import prisma from "@/app/libs/prismadb";
 
-export const authOptions: AuthOptions = {
+export const authOptions: AuthOptions = { 
   adapter: PrismaAdapter(prisma),
   providers: [
     GithubProvider({
@@ -15,8 +15,11 @@ export const authOptions: AuthOptions = {
       clientSecret: process.env.GITHUB_SECRET as string,
     }),
     GoogleProvider({
-      clientId: process.env.GOOLE_CLIENT_ID as string,
-      clientSecret: process.env.GOOLE_CLIENT_SECRET as string,
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+      httpOptions: {
+        timeout: 4000,
+      },
     }),
     CredentialsProvider({
       name: "credentials",
@@ -33,13 +36,13 @@ export const authOptions: AuthOptions = {
             email: credentials.email,
           },
         });
-        if (!user || !user?.hashPassword) {
+        if (!user || !user?.hashedPassword) {
           throw new Error("Invalid Credentials");
         }
 
         const isCorrectPassword = await bcrypt.compare(
           credentials.password,
-          user.hashPassword
+          user.hashedPassword
         );
         if (!isCorrectPassword) {
           throw new Error("Invalid Credentials");
@@ -57,4 +60,4 @@ export const authOptions: AuthOptions = {
 
 const handler = NextAuth(authOptions);
 
-export {handler as GET,handler as POST,handler as PUT}
+export { handler as GET, handler as POST, handler as PUT };
