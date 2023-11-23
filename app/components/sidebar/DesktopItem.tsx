@@ -5,7 +5,7 @@ import React from "react";
 
 interface DesktopItemProps {
   label: string;
-  icon: string;
+  icon: any;
   href: string;
   onClick?: () => void;
   active?: boolean;
@@ -37,6 +37,3 @@ const DesktopItem: React.FC<DesktopItemProps> = ({
 };
 
 export default DesktopItem;
-
-
-
