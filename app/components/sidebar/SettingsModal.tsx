@@ -7,11 +7,12 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { User } from "@prisma/client";
 import { CldUploadButton } from "next-cloudinary";
 
-import Input from "../inputs/Input";
-import Modal from "../modals/Modal";
+
 import Button from "../Button";
 import Image from "next/image";
 import { toast } from "react-hot-toast";
+import Modal from "../Modal";
+import Input from "../input/Input";
 
 interface SettingsModalProps {
   isOpen?: boolean;
